@@ -15,6 +15,7 @@ Text = 'Text'
 Executables = 'Executables'
 Docs = 'Docs'
 Zip = 'Zipped'
+Misc = 'Miscellaneous'
 
 
 
@@ -43,6 +44,9 @@ def check_and_create():
     if path.isdir(Zip) == False:
         zip = os.path.join(folder_to_sort, Zip)
         os.mkdir(zip)
+    if path.isdir(Misc) == False:
+        Mis = os.path.join(folder_to_sort, Misc)
+        os.mkdir(Mis)
 
 
 
@@ -97,8 +101,14 @@ def sort_files():
                 os.rename(move_from, move_to)
                 shutil.move(move_from, move_to)
                 os.replace(move_from, move_to)
-            else:
+            elif path.isdir(filename) == True:
                 continue
+            else:
+                move_from = folder_to_sort + "/" + filename
+                move_to = folder_to_sort + "/" + Misc + "/" + filename
+                os.rename(move_from, move_to)
+                shutil.move(move_from, move_to)
+                os.replace(move_from, move_to)
         except FileNotFoundError:
             continue
 
